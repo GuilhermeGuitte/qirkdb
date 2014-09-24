@@ -3,6 +3,7 @@ package database
 import (
     "unsafe"
     "fmt"
+    "sync"
 )
 
 type Row struct {
@@ -12,6 +13,7 @@ type Row struct {
 
 type Database struct {
     table map[string]Row
+    sync.RWMutex
 }
 
 /**
@@ -27,6 +29,9 @@ func New() *Database {
  * Set key => value to database.
  */
 func (database *Database) Set(key string, value string) {
+    database.Lock()
+    defer database.Unlock()
+
     row      := Row{}
     row.value = value
 
@@ -37,6 +42,9 @@ func (database *Database) Set(key string, value string) {
  * Get the key given.
  */
 func (database Database) Get(key string) (string, bool) {
+    database.RLock()
+    defer database.RUnlock()
+
     value := database.table[key].value
     empty := len(value) == 0
 
@@ -47,6 +55,9 @@ func (database Database) Get(key string) (string, bool) {
  * Delete a Key given at database.
  */
 func (database *Database) Del(key string) {
+    database.Lock()
+    defer database.Unlock()
+
     delete(database.table, key)
 }
 

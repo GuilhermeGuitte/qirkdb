@@ -65,7 +65,9 @@ func TestSetTllForExistentARow(t *testing.T) {
     database.Set("key", "value")
 
     // Act
-    database.setTTL("key", 100) // seconds
+    status := database.setTTL("key", 100) // seconds
+
+    assert.True(t, status)
 
     // Assert
     result, _ := database.getTTL("key")

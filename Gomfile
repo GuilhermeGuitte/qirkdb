@@ -1,0 +1,4 @@
+group :test do
+    gom 'github.com/stretchr/testify'
+    gom 'github.com/nathany/looper'
+end

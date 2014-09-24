@@ -10,6 +10,7 @@ Dependencies
 Installing dependencies
 
 > $ gom install
+
 > $ gom -test install
 
 For watching your files and run all tests.

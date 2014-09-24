@@ -72,7 +72,6 @@ func TestSetTllForExistentARow(t *testing.T) {
     assert.Equal(t, 100, result)
 }
 
-
 func TestSetTllForNoExistentARow(t *testing.T) {
     // Range
     database := New()
@@ -82,4 +81,16 @@ func TestSetTllForNoExistentARow(t *testing.T) {
 
     // Assert
     assert.False(t, isOk)
+}
+
+func TestReturnTheSizeOfValue(t *testing.T) {
+    // Range
+    database := New()
+
+    // Act
+    database.Set("key", "value")
+    size := database.getSize("key")
+
+    // Assert
+    assert.Equal(t, "0.015625 KB", size)
 }

@@ -1,3 +1,4 @@
 .godeps
 c.out
 coverage.html
+_vendor

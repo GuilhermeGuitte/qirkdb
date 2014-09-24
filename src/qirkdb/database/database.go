@@ -1,5 +1,10 @@
 package database
 
+import (
+    "unsafe"
+    "fmt"
+)
+
 type Row struct {
     value string
     ttl   int
@@ -78,4 +83,15 @@ func (database *Database) getTTL(key string) (int, bool) {
     _ , empty := database.Get(key)
 
     return database.table[key].ttl, empty
+}
+
+/**
+ * Return a size of the value
+ */
+func (database Database) getSize(key string) (string) {
+    value , _ := database.Get(key)
+
+    size := (float64(unsafe.Sizeof(value)) / 1024)
+
+    return fmt.Sprintf("%f KB", size)
 }

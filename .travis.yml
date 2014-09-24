@@ -15,5 +15,5 @@ install:
     - go get code.google.com/p/go.tools/cmd/cover
 
 script:
-    - go test -v ./...
-    - $HOME/gopath/bin/goveralls
+    - go test -v ./... -covermode=count -coverprofile=profile.cov
+    - goveralls -coverprofile=profile.cov -service=travis-ci
